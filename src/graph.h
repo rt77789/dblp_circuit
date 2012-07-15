@@ -32,7 +32,7 @@ namespace circuit {
 
 			Edge edge(int node, int idx) const;
 
-			static void transform(const char* ifile, const char* ofile);
+//			static void transform(const char* ifile, const char* ofile);
 
 		private:
 			int _n, _m;

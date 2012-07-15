@@ -13,8 +13,9 @@ aux_source_directory(src dir_srcs)
 message("current project source dir: ${${project_name}_SOURCE_DIR}")
 message("current project source dir: ${${project_name}_BINARY_DIR}")
 
-INCLUDE_DIRECTORIES(./src/)
-INCLUDE_DIRECTORIES(./include/)
+INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/src/)
+INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/include/)
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib/)
 
 add_executable(main ${${project_name}_SOURCE_DIR}/main.cpp ${dir_srcs})
 

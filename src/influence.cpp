@@ -2,6 +2,8 @@
 #include <map>
 
 namespace circuit {
+#define DEBUG
+
 	InfluenceNetwork::InfluenceNetwork(const char* file, double lam = 0.25):_lam(lam) {
 		load(file);
 	}
@@ -43,7 +45,7 @@ namespace circuit {
 			}
 		}
 
-		int iterNum = 5;
+		int iterNum = 60;
 		Edge e;
 		for(int i = 0; i < iterNum; ++i) {
 			for(size_t j = 0; j < apart_s.size(); ++j) {
@@ -103,7 +105,9 @@ namespace circuit {
 			for(int i = 0; i < _net.size_n(); ++i) {
 				pmax += fi[i] * (1 - fs[i]);
 			}
-			/// cout << pmax << std::endl;
+#ifdef DEBUG
+			std::cout << "pmax: " << pmax  << " seeds.size(): " << seeds.size() << std::endl;
+#endif
 			queue.erase(iter);
 			queue.insert(PotenNode(pmax, iter->second));
 
@@ -117,6 +121,9 @@ namespace circuit {
 							tpmax += fi[i] * (1 - fs[i]);
 						}
 						//// cout << ;
+#ifdef DEBUG
+						std::cout << "node: " << iter->second << " ,tpmax: " << tpmax << " ,pmax: " << pmax << std::endl;
+#endif
 						if(tpmax > pmax) {
 							pmax = tpmax;
 							fmax.assign(fi.begin(), fi.end());
@@ -137,6 +144,9 @@ namespace circuit {
 				fs[i] = 1 - (1 - fs[i]) * (1 - fmax[i]);
 			}
 			// cout
+#ifdef DEBUG
+			std::cout << "select node: " << candidate << std::endl;
+#endif
 			iter = queue.find(pmax);
 			if(iter != queue.end())
 			queue.erase(iter);
