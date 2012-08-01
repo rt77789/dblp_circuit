@@ -1,8 +1,11 @@
 #include "influence.h"
 #include <map>
+#include <cassert>
+#include <cmath>
 
 namespace circuit {
 #define DEBUG
+#define eps 1e-8
 
 	InfluenceNetwork::InfluenceNetwork(const char* file, double lam = 0.25):_lam(lam) {
 		load(file);
@@ -63,7 +66,7 @@ namespace circuit {
 		}
 
 		for(int i = 0; i < _net.size_n(); ++i) {
-			//// assert(fabs(poten[node]) > eps); /// poten[node] can't be 0.
+			assert(fabs(poten[node]) > eps); /// poten[node] can't be 0.
 			poten[i] *= 1. / poten[node];
 		}
 		/// poten[*] is the final answer.
@@ -155,5 +158,22 @@ namespace circuit {
 
 	void InfluenceNetwork::load(const char* file) {
 		_net.load(file);
+	}
+	
+	void InfluenceNetwork::calExpectedPoten(std::vector<double>& ep) {
+		std::vector<double> poten;
+		std::set<int> seeds;
+
+		ep.resize(_net.size_n(), 0);
+
+		for(int i = 0; i < _net.size_n(); ++i) {
+			calSinglePoten(i, seeds, poten);
+			ep[i] = 0;
+			for(size_t j = 0; j < poten.size(); ++j) {
+				ep[i] += poten[j];
+			}
+
+			std::cout << "node: " << i << " , expected potential: " << ep[i] << std::endl;
+		}
 	}
 }

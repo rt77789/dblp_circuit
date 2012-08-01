@@ -3,6 +3,7 @@
 #include <graph.h>
 #include <influence.h>
 #include <cstdio>
+#include <algorithm>
 
 int main(int argc, char** args) {
 
@@ -21,14 +22,20 @@ int main(int argc, char** args) {
 	inet.load(args[1]);
 
 	std::set<int> seeds;
+	/*
 	inet.calSeedSet(1, seeds);
 
 	for(std::set<int>::iterator iter = seeds.begin(); iter != seeds.end(); ++iter) {
 		std::cerr << *iter << std::endl;
 	}
 
+	*/
+	std::vector<double> ep;
 
-	//	std::cout << net.size_n() << std::endl;
+	inet.calExpectedPoten(ep);
+
+
+		//	std::cout << net.size_n() << std::endl;
 	//	std::cout << net.size_m() << std::endl;
 	//	int node = 0;
 	//	std::cout << net.size_neighbor(node) << std::endl;
