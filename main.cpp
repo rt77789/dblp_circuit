@@ -22,17 +22,18 @@ int main(int argc, char** args) {
 	inet.load(args[1]);
 
 	std::set<int> seeds;
-	/*
-	inet.calSeedSet(1, seeds);
+
+	inet.calSeedSet(20, seeds);
 
 	for(std::set<int>::iterator iter = seeds.begin(); iter != seeds.end(); ++iter) {
 		std::cerr << *iter << std::endl;
 	}
 
-	*/
+	/*
 	std::vector<double> ep;
 
 	inet.calExpectedPoten(ep);
+	*/
 
 
 		//	std::cout << net.size_n() << std::endl;
