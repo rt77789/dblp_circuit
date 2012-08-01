@@ -21,8 +21,17 @@ MESSAGE(${PROJECT_SOURCE_DIR}/lib)
 #	MESSAGE("Can't find gtest lib path.")
 #ENDIF(extra_libs)
 #
+IF(${APPLE})
+	SET(libgtest_main "libgtest_main_mac.a")
+	SET(libgtest "libgtest_mac.a")
+ELSEIF(${WIN32})
+
+ELSEIF(${UNIX})
+	SET(libgtest_main "libgtest_main.a")
+	SET(libgtest "libgtest.a")
+ENDIF(${APPLE})
 
 TARGET_LINK_LIBRARIES(test_all
 	pthread
-	libgtest_main.a
-	libgtest.a)
+	${libgtest_main}
+	${libgtest})

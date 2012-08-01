@@ -1,6 +1,21 @@
 
 set(project_name "DBLP_CIRCUIT")
 
+#IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+IF(${APPLE})
+	# Mac OS X specific code
+	SET(OS "MAC")
+	#MESSAGE("${OperatingSystem}")
+	#MESSAGE(${CMAKE_HOST_SYSTEM})
+ELSEIF(${WIN32})
+	SET(OS "WIN32")
+ELSEIF(${UNIX})
+	SET(OS "UNIX")
+ENDIF(${APPLE})
+#ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+
+
 project(${project_name})
 
 cmake_minimum_required(VERSION 2.6)
@@ -12,6 +27,7 @@ aux_source_directory(src dir_srcs)
 
 message("current project source dir: ${${project_name}_SOURCE_DIR}")
 message("current project source dir: ${${project_name}_BINARY_DIR}")
+
 
 INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/src/)
 INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/include/)
