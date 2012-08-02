@@ -10,5 +10,7 @@
 
 namespace circuit {
 	void transform(const char* ifile, const char* ofile);
+	double sigmoid(double x);
+	double smooth(double x);
 }
 #endif

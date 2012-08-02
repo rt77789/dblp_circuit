@@ -12,12 +12,14 @@ namespace circuit {
 			///
 			InfluenceNetwork(const char* file, double lam);
 			InfluenceNetwork(double lam);
+			InfluenceNetwork(const char* file, const char* lamfile);
 
 			~InfluenceNetwork();
 
 			/**/
 			void calSeedSet(int num, std::set<int>& seeds) const;
 			void load(const char* file);
+			void load_lamda(const char* lamfile);
 			/* Calculate potential of node apart of set s. */
 			void calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const;
 
@@ -25,6 +27,7 @@ namespace circuit {
 
 		private:
 			double _lam;
+			std::vector<double> _lams;
 			Network _net;
 
 			/**/

@@ -1,4 +1,5 @@
 #include "util.h"
+#include <cmath>
 
 namespace circuit {
 	void transform(const char* ifile, const char* ofile) {
@@ -18,7 +19,6 @@ namespace circuit {
 		int u = 0, v = 0;
 		double weight = 0;
 
-		//for(int i = 0; i < m; ++i) {
 		n = 0;
 
 		for(int i = 0; ; ++i) {
@@ -27,7 +27,7 @@ namespace circuit {
 			}
 			n = n > u ? n : u;
 			n = n > v ? n : v;
-			
+
 			std::map<int, NodeList>::iterator iter = neighborList.find(u);
 			if(iter == neighborList.end()) {
 				NodeList uList;
@@ -53,9 +53,9 @@ namespace circuit {
 				++m;
 			}
 		}
-			
+
 		out << n << "\t" << m << std::endl;
-			
+
 		for(std::map<int, NodeList>::iterator iter = neighborList.begin();
 				iter != neighborList.end(); ++iter) {
 			for(size_t i = 0; i < iter->second.size(); ++i) {
@@ -81,5 +81,12 @@ namespace circuit {
 		}
 		out.close();
 		in.close();
+	}
+
+	double sigmoid(double x) {
+		return 1. / (1 + exp(-x));
+	}
+	double smooth(double x) {
+		return (x + 1) / (x + 2);
 	}
 }

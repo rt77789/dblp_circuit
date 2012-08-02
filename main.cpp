@@ -1,42 +1,65 @@
 
 #include <iostream>
+#include <string>
 #include <graph.h>
 #include <influence.h>
 #include <cstdio>
 #include <algorithm>
+#include <helper.h>
+#include <cstring>
 
 int main(int argc, char** args) {
 
+	std::string options[] = {"--single-influence", 
+	"--all-node-influence", "--cal-linked-zones"};
+
 	if(argc < 2) {
-		perror("Command line parameter number < 2.\n");
-		return 1;
+		for(int i = 0; i < 3; ++i) {
+			std::cout << "\t\t" << options[i] << std::endl;
+		}
+		return 0;
 	}
 
-	//std::cout << "in root/main.cpp\n";
+	if(strcmp(args[1], "--single-influence") == 0) {
+		circuit::InfluenceNetwork inet(args[2], args[3]);
 
-	//circuit::Network net;
-	//net.load(args[1]);
 
-	circuit::InfluenceNetwork inet(0.5);
+		std::set<int> seeds;
 
-	inet.load(args[1]);
+		/*
+		   inet.calSeedSet(1, seeds);
 
-	std::set<int> seeds;
+		   for(std::set<int>::iterator iter = seeds.begin(); iter != seeds.end(); ++iter) {
+		   std::cerr << *iter << std::endl;
+		   }
 
-	inet.calSeedSet(20, seeds);
+		 */
+		//	std::vector<double> ep;
 
-	for(std::set<int>::iterator iter = seeds.begin(); iter != seeds.end(); ++iter) {
-		std::cerr << *iter << std::endl;
+		//	inet.calExpectedPoten(ep);
+		int node = 31075;
+		std::vector<double> poten;
+		inet.calSinglePoten(node, seeds, poten);
+
+		double epsum = 0;
+		for(size_t i = 0; i < poten.size(); ++i) {
+			epsum += poten[i];
+		}
+		std::cout << "node: " << node << " ,epsum: " << epsum << std::endl;
+
+
+	}
+	else if(strcmp(args[1], "--all-node-influence") == 0) {
+	}
+	else if(strcmp(args[1], "--cal-linked-zones") == 0) {
+		circuit::Helper helper;
+		std::cout << "linked_zones number: " << helper.cal_linked_zones(args[2]) << std::endl;
+	}
+	else {
 	}
 
-	/*
-	std::vector<double> ep;
 
-	inet.calExpectedPoten(ep);
-	*/
-
-
-		//	std::cout << net.size_n() << std::endl;
+	//	std::cout << net.size_n() << std::endl;
 	//	std::cout << net.size_m() << std::endl;
 	//	int node = 0;
 	//	std::cout << net.size_neighbor(node) << std::endl;

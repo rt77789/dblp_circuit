@@ -30,14 +30,14 @@ namespace circuit {
 		_edges.resize(_m);
 		_degree.resize(_n);
 
-		double max_w = 0;
+//		double max_w = 0;
 
 		for(int i = 0; i < _m; ++i) {
 			in >> _edges[i].u >> _edges[i].v >> _edges[i].w1 >> _edges[i].w2;
 			//std::cout << _edges[i].w1 << " " << _edges[i].w2 << std::endl;
 			//assert(_edges[i].w1 <= 1 + 1e-8 && _edges[i].w2 <= 1 + 1e-8);
-			max_w = max_w > _edges[i].w1 ? max_w : _edges[i].w1;
-			max_w = max_w > _edges[i].w2 ? max_w : _edges[i].w2;
+//			max_w = max_w > _edges[i].w1 ? max_w : _edges[i].w1;
+//			max_w = max_w > _edges[i].w2 ? max_w : _edges[i].w2;
 
 			_edges[i].c1 = _edges[i].c2 = 1;
 			_degree[_edges[i].u]++;

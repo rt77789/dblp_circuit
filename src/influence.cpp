@@ -1,17 +1,24 @@
 #include "influence.h"
+#include "util.h"
 #include <map>
 #include <cassert>
 #include <cmath>
+#include <fstream>
 
 namespace circuit {
 #define DEBUG
-#define eps 1e-8
+#define EPS 1e-8
 
 	InfluenceNetwork::InfluenceNetwork(const char* file, double lam = 0.25):_lam(lam) {
 		load(file);
 	}
 
 	InfluenceNetwork::InfluenceNetwork(double lam = 0.25):_lam(lam) {
+	}
+
+	InfluenceNetwork::InfluenceNetwork(const char* file, const char* lamfile) {
+		load(file);
+		load_lamda(lamfile);
 	}
 
 
@@ -32,7 +39,7 @@ namespace circuit {
 					fluence += e.w1 * poten[e.v];	
 				}
 
-				poten[j] = (1 + fluence) / ( 1 + _lam);
+				poten[j] = (1 + fluence) * smooth(_lams[j]);
 			}
 		}
 		/// poten[*] is the calculated potentials.
@@ -61,12 +68,13 @@ namespace circuit {
 					fluence += e.w2 * poten[e.v];	
 				}
 
-				poten[id] = (1. / (1. + _lam)) * ((id == node ? 1 : 0) + fluence);
+				//poten[id] = (1. / (1. + (1. / (_lams[id] + EPS)) )) * ((id == node ? 1 : 0) + fluence);
+				poten[id] = smooth(_lams[id] + EPS ) * ((id == node ? 1 : 0) + fluence);
 			}
 		}
 
 		for(int i = 0; i < _net.size_n(); ++i) {
-			assert(fabs(poten[node]) > eps); /// poten[node] can't be 0.
+			assert(fabs(poten[node]) >= EPS); /// poten[node] can't be 0.
 			poten[i] *= 1. / poten[node];
 		}
 		/// poten[*] is the final answer.
@@ -158,6 +166,24 @@ namespace circuit {
 
 	void InfluenceNetwork::load(const char* file) {
 		_net.load(file);
+	}
+
+	void InfluenceNetwork::load_lamda(const char* lamfile) {
+		std::ifstream in(lamfile);
+
+		assert(in.is_open());
+		int n = 0;
+		in >> n;
+		_lams.resize(n, 0);
+
+		int id = 0;
+		double damping = 0;
+
+		while(in >> id >> damping) {
+			_lams[id] = damping;
+		}
+
+		in.close();
 	}
 	
 	void InfluenceNetwork::calExpectedPoten(std::vector<double>& ep) {

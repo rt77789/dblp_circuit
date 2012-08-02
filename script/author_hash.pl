@@ -24,21 +24,21 @@ while(<stdin>) {
 			push @ah, $hash{$au};
 		}
 		else {
-			++$hindex;
 			$hash{$au} = $hindex;
 			push @ah, $hindex;
+			++$hindex;
 		}
-		$hash{$au}++;
+#		$hash{$au}++;
 	}
 	if(defined $conf{$parts[1]}) {
 		print join(',', @ah), "\t$conf{$parts[1]}\n";
 		#push @lines, join(',', @ah)."\t$conf{$parts[1]}\n";
 	}
 	else {
-		++$cindex;
 		$conf{$parts[1]} = $cindex;
 		print join(',', @ah), "\t$cindex\n";
 		#push @lines, join(',', @ah)."\t$cindex\n";
+		++$cindex;
 	}
 	++$lnum;
 }
