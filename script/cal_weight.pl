@@ -2,6 +2,10 @@
 
 
 ### 计算autor之间的边的权重.
+####
+### perl cal_weight.pl < dblp.hashed > edges.info
+###
+
 my %eds;
 my $e_num = 0;
 my $node_num = 0;
@@ -39,16 +43,16 @@ my %node_sum1;
 for my $x (keys %eds) {
 	for my $y (keys %{$eds{$x}}) {
 		++$e_num; #print "$x $y $eds{$x}->{$y}->[0] $eds{$x}->{$y}->[1]\n";
-		$node_sum{$x} += $eds{$x}->{$y}->[0];
-		$node_sum1{$y} += $eds{$x}->{$y}->[1];
+		$node_sum{$x} += $eds{$x}->{$y}->[1];
+		$node_sum1{$y} += $eds{$x}->{$y}->[0];
 		#$sum1 += $eds{$x}->{$y}->[1];
 	}
 }
 
 for my $x (keys %eds) {
 	for my $y (keys %{$eds{$x}}) {
-		$eds{$x}->{$y}->[0] /= $node_sum{$x};
-		$eds{$x}->{$y}->[1] /= $node_sum1{$y}; # if defined($node_sum{$y}) && $node_sum{$y} > 0;
+		$eds{$x}->{$y}->[1] /= $node_sum{$x};
+		$eds{$x}->{$y}->[0] /= $node_sum1{$y}; # if defined($node_sum{$y}) && $node_sum{$y} > 0;
 	}
 }
 

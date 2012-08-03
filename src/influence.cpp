@@ -81,7 +81,7 @@ namespace circuit {
 				tpsum += poten[j];
 			}
 			if(fabs(tpsum - poten_sum) < threshold) break;
-			//std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
 			poten_sum = tpsum;
 		}
 
