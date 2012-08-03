@@ -23,23 +23,13 @@ int main(int argc, char** args) {
 	if(strcmp(args[1], "--single-influence") == 0) {
 		circuit::InfluenceNetwork inet(args[2], args[3]);
 
-
 		std::set<int> seeds;
 
-		/*
-		   inet.calSeedSet(1, seeds);
-
-		   for(std::set<int>::iterator iter = seeds.begin(); iter != seeds.end(); ++iter) {
-		   std::cerr << *iter << std::endl;
-		   }
-
-		 */
-		//	std::vector<double> ep;
-
-		//	inet.calExpectedPoten(ep);
-		int node = 31075;
+				int node = 48299;//43902; //48299;
 		std::vector<double> poten;
+		std::cout << "degree: " << inet.degree(node) << std::endl;
 		inet.calSinglePoten(node, seeds, poten);
+		
 
 		double epsum = 0;
 		for(size_t i = 0; i < poten.size(); ++i) {
@@ -50,6 +40,11 @@ int main(int argc, char** args) {
 
 	}
 	else if(strcmp(args[1], "--all-node-influence") == 0) {
+		circuit::InfluenceNetwork inet(args[2], args[3]);
+		std::vector<double> ep;
+
+		inet.calExpectedPoten(ep);
+
 	}
 	else if(strcmp(args[1], "--cal-linked-zones") == 0) {
 		circuit::Helper helper;

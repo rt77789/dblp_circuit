@@ -55,9 +55,13 @@ namespace circuit {
 			}
 		}
 
-		int iterNum = 60;
+		int iterNum = 100;
 		Edge e;
+		double poten_sum = 1e300;
+		double threshold = 1e-3;
+
 		for(int i = 0; i < iterNum; ++i) {
+
 			for(size_t j = 0; j < apart_s.size(); ++j) {
 				int id = apart_s[j];
 
@@ -71,6 +75,14 @@ namespace circuit {
 				//poten[id] = (1. / (1. + (1. / (_lams[id] + EPS)) )) * ((id == node ? 1 : 0) + fluence);
 				poten[id] = smooth(_lams[id] + EPS ) * ((id == node ? 1 : 0) + fluence);
 			}
+
+			double tpsum = 0;
+			for(size_t j = 0; j < _net.size_n(); ++j) {
+				tpsum += poten[j];
+			}
+			if(fabs(tpsum - poten_sum) < threshold) break;
+			//std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			poten_sum = tpsum;
 		}
 
 		for(int i = 0; i < _net.size_n(); ++i) {
@@ -201,5 +213,9 @@ namespace circuit {
 
 			std::cout << "node: " << i << " , expected potential: " << ep[i] << std::endl;
 		}
+	}
+
+	int InfluenceNetwork::degree(int node) {
+		return _net.degree(node);
 	}
 }

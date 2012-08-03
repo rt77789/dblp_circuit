@@ -22,6 +22,7 @@ namespace circuit {
 			void load_lamda(const char* lamfile);
 			/* Calculate potential of node apart of set s. */
 			void calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const;
+			int degree(int node);
 
 			void calExpectedPoten(std::vector<double>& ep);
 
