@@ -25,7 +25,7 @@ int main(int argc, char** args) {
 
 		std::set<int> seeds;
 
-				int node = 48299;//43902; //48299;
+				int node = 52927;//48299;//49550;//53154; //43902; //48299;//43902; //48299;
 		std::vector<double> poten;
 		std::cout << "degree: " << inet.degree(node) << std::endl;
 		inet.calSinglePoten(node, seeds, poten);
