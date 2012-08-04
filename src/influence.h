@@ -26,6 +26,7 @@ namespace circuit {
 
 			void calExpectedPoten(std::vector<double>& ep);
 			void calPoten(std::vector<double>& poten) const;
+			void calInfluence(std::vector<double>& poten) const; 
 
 		private:
 			double _lam;

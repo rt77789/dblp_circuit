@@ -70,7 +70,8 @@ sub cal_cate_damping {
 		my $confs = $au_conf_cate{$cate};
 		for my $k (sort { $confs->{$b} * $confs->{$b} / $au_sum{$b} <=> $confs->{$a} * $confs->{$a} / $au_sum{$a} } keys %{$confs}) {
 			#print CATE $k, " ", $confs->{$k}, " ", $au_sum{$k}, " ", $confs->{$k} * $confs->{$k} / $au_sum{$k}, "\n";
-			print CATE $k, " ", $confs->{$k} * $confs->{$k} / $au_sum{$k}, "\n";
+			#print CATE $k, " ", $confs->{$k} * $confs->{$k} / $au_sum{$k}, "\n";
+			print CATE $k, " ", $confs->{$k}, "\n";
 		}
 		close CATE;
 	}

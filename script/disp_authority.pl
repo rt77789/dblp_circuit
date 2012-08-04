@@ -28,12 +28,13 @@ sub main {
 
 	while(<stdin>) {
 		chomp;
-		my ($id, $score) = split /\s+/;
-		$authority{$id} = $score;	
+		my ($id, $score, $degree) = split /\s+/;
+		$authority{$id}->[0] = $score;	
+		$authority{$id}->[1] = $degree;	
 	}
 
-	for my $id (sort { $authority{$b} <=> $authority{$a} } keys %authority) {
-		print $au_id2name{$id}, " ", $id, " ", $authority{$id}, "\n";
+	for my $id (sort { $authority{$b}->[0] <=> $authority{$a}->[0] } keys %authority) {
+		print $au_id2name{$id}, "\t", $id, "\t", $authority{$id}->[1], "\t", $authority{$id}->[0], "\n";
 	}
 }
 &main;

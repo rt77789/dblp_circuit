@@ -25,6 +25,13 @@ namespace circuit {
 	InfluenceNetwork::~InfluenceNetwork() {
 	}
 
+	void InfluenceNetwork::calInfluence(std::vector<double>& poten) const {
+		calPoten(poten);
+		for(int i = 0; i < _net.size_n(); ++i) {
+			poten[i] /= smooth(_lams[i]);
+		}
+	}
+
 	void InfluenceNetwork::calPoten(std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
 		
@@ -42,7 +49,7 @@ namespace circuit {
 					fluence += e.w1 * poten[e.v];	
 				}
 
-				poten[j] = (1 + fluence) * smooth(_lams[j]);
+				poten[j] = ( (_lams[j] > 0 ? 1 : 0 )+ fluence) * smooth(_lams[j]);
 			}
 
 			double tpsum = 0;
@@ -51,7 +58,7 @@ namespace circuit {
 			}
 
 			if(fabs(tpsum - poten_sum) < threshold) break;
-			//std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			//std::cerr << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
 			poten_sum = tpsum;
 		}
 		/// poten[*] is the calculated potentials.
@@ -93,7 +100,7 @@ namespace circuit {
 				tpsum += poten[j];
 			}
 			if(fabs(tpsum - poten_sum) < threshold) break;
-			std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			//std::cerr << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
 			poten_sum = tpsum;
 		}
 

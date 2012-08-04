@@ -33,6 +33,8 @@ int main(int argc, char** args) {
 		authors.push_back(IdAuthor(49550, "Rakesh Agrawal"));
 		authors.push_back(IdAuthor(53154, "Hui Xiong"));
 		authors.push_back(IdAuthor(43902, "Philip S. Yu"));
+		authors.push_back(IdAuthor(25851, "Wei Wang"));
+		authors.push_back(IdAuthor(55381, "Foster J. Provost"));
 
 		for(size_t ai = 0; ai < authors.size(); ++ai) {
 
@@ -40,7 +42,6 @@ int main(int argc, char** args) {
 			std::vector<double> poten;
 			std::cout << "degree: " << inet.degree(node) << std::endl;
 			inet.calSinglePoten(node, seeds, poten);
-
 
 			double epsum = 0;
 			for(size_t i = 0; i < poten.size(); ++i) {
@@ -55,11 +56,11 @@ int main(int argc, char** args) {
 
 		//inet.calExpectedPoten(ep);
 		std::vector<double> poten;
-		inet.calPoten(poten);
+		inet.calInfluence(poten);
 		
 		//sort(poten.begin(), poten.end(), std::greater<double>());
 		for(size_t i = 0 ; i < poten.size(); ++i) {
-			std::cout << i << " " << poten[i] << std::endl;
+			std::cout << i << " " << poten[i] << " " << inet.degree(i) << std::endl;
 		}
 	}
 	else if(strcmp(args[1], "--cal-linked-zones") == 0) {
