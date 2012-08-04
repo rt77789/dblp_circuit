@@ -28,8 +28,11 @@ namespace circuit {
 	void InfluenceNetwork::calPoten(std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
 		
-		int iterNum = 60;
+		int iterNum = 100;
 		Edge e;
+		double poten_sum = 1e300;
+		double threshold = 1e-3;
+
 
 		for(int i = 0; i < iterNum; ++i) {
 			for(int j = 0; j < _net.size_n(); ++j) {
@@ -41,6 +44,15 @@ namespace circuit {
 
 				poten[j] = (1 + fluence) * smooth(_lams[j]);
 			}
+
+			double tpsum = 0;
+			for(size_t j = 0; j < _net.size_n(); ++j) {
+				tpsum += poten[j];
+			}
+
+			if(fabs(tpsum - poten_sum) < threshold) break;
+			//std::cout << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			poten_sum = tpsum;
 		}
 		/// poten[*] is the calculated potentials.
 	}

@@ -79,7 +79,7 @@ sub cal_cate_damping {
 }
 
 sub main {
-	if($#ARGV < 2) {
+	if($#ARGV <= 2) {
 		die "perl cal_damping.pl dblp.hashed conf.cate conf.map out_dir\n";
 	}
 	&load_conf_map;

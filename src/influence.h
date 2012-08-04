@@ -25,6 +25,7 @@ namespace circuit {
 			int degree(int node);
 
 			void calExpectedPoten(std::vector<double>& ep);
+			void calPoten(std::vector<double>& poten) const;
 
 		private:
 			double _lam;
@@ -36,7 +37,6 @@ namespace circuit {
 		//	double calOuterInfluence(int node);
 
 			/* Calculate potentials of each node. */
-			void calPoten(std::vector<double>& poten) const;
 						
 		};
 }
