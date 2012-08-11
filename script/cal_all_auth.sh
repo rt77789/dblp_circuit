@@ -2,14 +2,23 @@
 
 if [[ $# -lt 1 ]]; then
 	echo 'usage: bash cal_all_auth.sh category_of_damping_file'
+
 else
-	for param in $@; do
+	#		### Project Directory.
+	DIR=~/code/project/dblp_circuit/
+	PLIST=$@
+	if [[ $1 == '--all' ]]; then
+		PLIST=`ls ${DIR}/build/resource/*.damping`
+	fi
+	for param in ${PLIST[*]}; do
+		param=${param##*/}
+		param=${param%%.*}
+#		echo ${param}
+
 		echo "${param} file in processing..."
 		### Category of damping coefficent prefix.
 		CATE=${param}
 
-		### Project Directory.
-		DIR=~/code/project/dblp_circuit/
 		### Damping coeff file name.
 		DAMPING=${CATE}.damping
 		### Edges information file name.

@@ -87,7 +87,7 @@ namespace circuit {
 		return 1. / (1 + exp(-x));
 	}
 	double smooth(double x) {
-		return 1/(1.+0.176);
-		//return (x + 10) / (x + 11);
+		//return 1/(1.+0.176);
+		return (x + 1) / (x + 2);
 	}
 }

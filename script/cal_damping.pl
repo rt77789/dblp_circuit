@@ -49,13 +49,15 @@ sub cal_cate_damping {
 		chomp;
 		my ($aus, $conf) = split /\s+/;
 
-		for my $au (split /,/, $aus) {
+		my @aulist = split /,/, $aus;
+
+		for my $au (@aulist) {
 			$node_num = $au if $au > $node_num;
-			$au_sum{$au}++;			
+			$au_sum{$au} += (@aulist == 1) ? 1 : 2.0 / ((@aulist - 1) * @aulist);
 
 			#$au_conf{$au}++ if $conf eq $conf_id;
 
-			$au_conf_cate{$conf_cate{$conf} || "null" }->{$au}++;
+			$au_conf_cate{$conf_cate{$conf} || "null" }->{$au} += (@aulist == 1) ? 1 : 2.0 / ((@aulist - 1) * @aulist);
 		}
 	}
 
