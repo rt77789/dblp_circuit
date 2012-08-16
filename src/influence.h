@@ -28,6 +28,8 @@ namespace circuit {
 			void calPoten(std::vector<double>& poten) const;
 			void calInfluence(std::vector<double>& poten) const; 
 
+			double lambda(int node) const;
+
 		private:
 			double _lam;
 			std::vector<double> _lams;

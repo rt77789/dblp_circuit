@@ -7,6 +7,9 @@ else
 	#		### Project Directory.
 	DIR=~/code/project/dblp_circuit/
 	PLIST=$@
+	#INFLUCENT_OPTION=--all-node-influence
+	INFLUCENT_OPTION=--single-influence
+
 	if [[ $1 == '--all' ]]; then
 		PLIST=`ls ${DIR}/build/resource/*.damping`
 	fi
@@ -26,7 +29,7 @@ else
 		### Calculated authority file with respect to ${CATE}.
 		OUT_FILE=${CATE}.auth
 
-		${DIR}/build/main --all-node-influence ${DIR}/build/data/${EDGE_INFO} ${DIR}/build/resource/${DAMPING} | perl ${DIR}/script/disp_authority.pl ${DIR}/build/data/author.map > ${DIR}/build/data/${OUT_FILE}
+		${DIR}/build/main ${INFLUCENT_OPTION} ${DIR}/build/data/${EDGE_INFO} ${DIR}/build/resource/${DAMPING} | perl ${DIR}/script/disp_authority.pl ${DIR}/build/data/author.map > ${DIR}/build/data/${OUT_FILE}
 
 	done 
 fi

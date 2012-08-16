@@ -237,4 +237,8 @@ namespace circuit {
 	int InfluenceNetwork::degree(int node) {
 		return _net.degree(node);
 	}
+
+	double InfluenceNetwork::lambda(int node) const {
+		return _lams[node];
+	}
 }

@@ -8,10 +8,12 @@
 #include <helper.h>
 #include <cstring>
 
+typedef std::pair<double, int> Pair;
+
 int main(int argc, char** args) {
 
 	std::string options[] = {"--single-influence", 
-	"--all-node-influence", "--cal-linked-zones"};
+		"--all-node-influence", "--cal-linked-zones"};
 
 	if(argc < 2) {
 		for(int i = 0; i < 3; ++i) {
@@ -21,46 +23,53 @@ int main(int argc, char** args) {
 	}
 
 	if(strcmp(args[1], "--single-influence") == 0) {
-		circuit::InfluenceNetwork inet(args[2], args[3]);
+		std::vector<Pair> authors;
 
+		circuit::InfluenceNetwork inet(args[2], args[3]);
+		std::vector<double> tpoten;
+		inet.calInfluence(tpoten);
+		authors.resize(tpoten.size());
+
+		for(size_t i = 0; i < tpoten.size(); ++i) {
+			authors[i] = Pair(tpoten[i], i);
+		}
+		sort(authors.begin(), authors.end(), std::greater<Pair>());
+
+		/// TOP_K authors bounds are computed.
+		const int top_k = 20;
 		std::set<int> seeds;
 
-		typedef std::pair<int, std::string> IdAuthor;
-		std::vector<IdAuthor> authors;
+		for(int ai = 0; ai < top_k; ++ai) {
 
-		authors.push_back(IdAuthor(52927, "Qiang Yang"));
-		authors.push_back(IdAuthor(48299, "Jiawei Han"));
-		authors.push_back(IdAuthor(49550, "Rakesh Agrawal"));
-		authors.push_back(IdAuthor(53154, "Hui Xiong"));
-		authors.push_back(IdAuthor(43902, "Philip S. Yu"));
-		authors.push_back(IdAuthor(25851, "Wei Wang"));
-		authors.push_back(IdAuthor(55381, "Foster J. Provost"));
-
-		for(size_t ai = 0; ai < authors.size(); ++ai) {
-
-			int node = authors[ai].first;//48299;//49550;//53154; //43902; //48299;//43902; //48299;
+			int node = authors[ai].second;//48299;//49550;//53154; //43902; //48299;//43902; //48299;
 			std::vector<double> poten;
-			std::cout << "degree: " << inet.degree(node) << std::endl;
+			//std::cout << "degree: " << inet.degree(node) << std::endl;
 			inet.calSinglePoten(node, seeds, poten);
 
 			double epsum = 0;
 			for(size_t i = 0; i < poten.size(); ++i) {
-				epsum += poten[i];
+				if(inet.lambda(i) > 0)
+					epsum += poten[i];
 			}
-			std::cout << "author: " << authors[ai].second << ", node: " << node << " ,epsum: " << epsum << std::endl;
+			std::cerr << "ai: " << ai << std::endl;
+			std::cout << node << " " << epsum << " " << inet.degree(node) << std::endl;
 		}
 	}
 	else if(strcmp(args[1], "--all-node-influence") == 0) {
-		circuit::InfluenceNetwork inet(args[2], args[3]);
-		std::vector<double> ep;
 
-		//inet.calExpectedPoten(ep);
-		std::vector<double> poten;
-		inet.calInfluence(poten);
-		
-		//sort(poten.begin(), poten.end(), std::greater<double>());
+		std::vector<Pair> poten;
+
+		circuit::InfluenceNetwork inet(args[2], args[3]);
+		std::vector<double> tpoten;
+		inet.calInfluence(tpoten);
+		poten.resize(tpoten.size());
+		for(size_t i = 0; i < tpoten.size(); ++i) {
+			poten[i] = Pair(tpoten[i], i);
+		}
+		sort(poten.begin(), poten.end(), std::greater<Pair>());
+
 		for(size_t i = 0 ; i < poten.size(); ++i) {
-			std::cout << i << " " << poten[i] << " " << inet.degree(i) << std::endl;
+			std::cout << poten[i].second << " " << poten[i].first << " " << inet.degree(poten[i].second) <<  std::endl;
 		}
 	}
 	else if(strcmp(args[1], "--cal-linked-zones") == 0) {
