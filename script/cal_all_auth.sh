@@ -5,7 +5,7 @@ if [[ $# -lt 1 ]]; then
 else
 	#		### Project Directory.
 	PROJECT_DIR=~/code/project/dblp_circuit/
-	DIR=~/code/project/dblp_circuit/build2
+	DIR=~/code/project/dblp_circuit/build
 	DATA_DIR=${DIR}/data
 	FILE_NAME=dblp
 
