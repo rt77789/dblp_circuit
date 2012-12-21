@@ -1,6 +1,7 @@
 #!/usr/bin/perl 
 
 ##
+## A script which display 
 ## perl disp_authority.pl authority.info author.map
 ##
 

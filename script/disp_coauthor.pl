@@ -2,6 +2,7 @@
 
 
 #
+# A script which disp the (degree, edge weight 1, edge weight 2) of current node w.r.t input author name.
 # perl disp_coauthor.pl auth.map edges.info 'yi zheng'
 #
 

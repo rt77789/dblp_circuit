@@ -27,6 +27,8 @@ aux_source_directory(src dir_srcs)
 
 message("current project source dir: ${${project_name}_SOURCE_DIR}")
 message("current project source dir: ${${project_name}_BINARY_DIR}")
+MESSAGE(${CMAKE_SYSTEM_NAME})
+MESSAGE(${CMAKE_SYSTEM_PROCESSOR})
 
 
 INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/src/)

@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+###
+### Compute author per conf.
+###
 
 my %conf;
 

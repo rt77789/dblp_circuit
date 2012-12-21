@@ -1,0 +1,36 @@
+###
+perl extract.pl ../build/data/sample.xml > ../build/data/sample.raw
+
+###
+perl author_hash.pl ../build/data/sample_author.map ../build/data/sample_conf.map < ../build/data/sample.raw > ../build/data/sample.hashed
+
+###
+perl cal_weight.pl < ../build/data/sample.hashed > ../build/data/sample_edges.info
+
+### 
+perl ext_conf_name.pl < cs_conf_rank.html > conf.cate
+
+###
+perl cal_damping.pl dblp.hashed conf.cate conf.map out_dir
+
+### In the main.cpp file, modify the top_k.
+### top_k = 20, top_k is the parameter which specifies the number of authors to be calculated the infulences.
+### 
+##
+/*
+Parameters in cal_all_auth.sh file.
+	PROJECT_DIR=~/code/project/dblp_circuit/
+	DIR=~/code/project/dblp_circuit/build_test
+	DATA_DIR=${DIR}/data
+	FILE_NAME=dblp
+
+	PLIST=$@
+	#INFLUCENT_OPTION=--all-node-influence
+	INFLUCENT_OPTION=--single-influence
+Parameters in preprocess_data.sh file.
+	FILE_NAME=dblp
+	PROJECT_DIR=..
+	DATA_DIR=../build_test/data
+
+
+*/
