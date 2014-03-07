@@ -12,6 +12,7 @@ namespace circuit {
 			///
 			InfluenceNetwork(const char* file, double lam);
 			InfluenceNetwork(double lam);
+			InfluenceNetwork();
 			InfluenceNetwork(const char* file, const char* lamfile);
 
 			~InfluenceNetwork();

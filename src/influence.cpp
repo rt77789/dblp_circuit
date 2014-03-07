@@ -13,7 +13,11 @@ namespace circuit {
 		load(file);
 	}
 
-	InfluenceNetwork::InfluenceNetwork(double lam = 0.25):_lam(lam) {
+	InfluenceNetwork::InfluenceNetwork() {
+		_lam = 0.25;
+	}
+
+	InfluenceNetwork::InfluenceNetwork(double lam):_lam(lam) {
 	}
 
 	InfluenceNetwork::InfluenceNetwork(const char* file, const char* lamfile) {

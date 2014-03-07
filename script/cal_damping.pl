@@ -28,8 +28,8 @@ sub load_conf_map {
 	open CONF_MAP, "<$ARGV[2]" or die "open $ARGV[2] failed.\n";
 	while(<CONF_MAP>) {
 		chomp;
-		my ($cn, $id) = split /\s+/;
-		$cn =~ tr{A-Z}{a-z};
+		my ($cn, $id) = split /\t/;
+		#$cn =~ tr{A-Z}{a-z};
 		$conf_map{$cn} = $id;
 	}
 	close CONF_MAP;
