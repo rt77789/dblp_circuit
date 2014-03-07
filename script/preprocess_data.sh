@@ -1,9 +1,9 @@
-#!/usr/bash
+#!/bin/bash
 
 ## File name of input data, e.g. dblp.xml -> dblp, without suffix.
 FILE_NAME=dblp
 PROJECT_DIR=..
-DATA_DIR=../build2/data
+DATA_DIR=../build/data
 
 ###
 perl extract.pl ${DATA_DIR}/${FILE_NAME}.xml > ${DATA_DIR}/${FILE_NAME}.raw
