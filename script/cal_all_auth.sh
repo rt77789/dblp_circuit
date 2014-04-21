@@ -6,7 +6,7 @@ else
 	#		### Project Directory.
 	PROJECT_DIR=~/code/project/dblp_circuit/
 	#DIR=~/code/project/dblp_circuit/build2
-	DIR=~/code/project/dblp_circuit/build_IS
+	DIR=~/code/project/dblp_circuit/build2
 	DATA_DIR=${DIR}/data
 	FILE_NAME=dblp
 
@@ -33,7 +33,8 @@ else
 		### Calculated authority file with respect to ${CATE}.
 		OUT_FILE=${CATE}.auth
 
-		${DIR}/main ${INFLUCENT_OPTION} ${DATA_DIR}/${EDGE_INFO} ${DATA_DIR}/${DAMPING} | perl ${PROJECT_DIR}/script/disp_authority.pl ${DATA_DIR}/${FILE_NAME}_author.map > ${DATA_DIR}/${OUT_FILE}
+		#${DIR}/main ${INFLUCENT_OPTION} ${DATA_DIR}/${EDGE_INFO} ${DATA_DIR}/${DAMPING} | perl ${PROJECT_DIR}/script/disp_authority.pl ${DATA_DIR}/${FILE_NAME}_author.map > ${DATA_DIR}/${OUT_FILE}
+		${DIR}/main ${INFLUCENT_OPTION} ${DATA_DIR}/${EDGE_INFO} ${DATA_DIR}/${DAMPING} 
 
 	done	
 fi

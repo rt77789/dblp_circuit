@@ -76,6 +76,23 @@ int main(int argc, char** args) {
 		circuit::Helper helper;
 		std::cout << "linked_zones number: " << helper.cal_linked_zones(args[2]) << std::endl;
 	}
+	else if(strcmp(args[1], "--cal-src-to-tar") == 0) {
+		std::vector<double> poten;
+
+		std::set<int> src, tar;
+		src.insert(48299); //jiawei han
+		src.insert(522594); // yizhou sun
+
+		tar.insert(137243); // Yi Zheng
+		tar.insert(118072); // Enhong Chen
+
+		std::cout << "test" << std::endl;
+		circuit::InfluenceNetwork inet(args[2], args[3]);
+		std::cout << "test" << std::endl;
+		double ep = inet.calSet2SetPoten(src, tar, poten);
+		std::cout << "Total Influence from src to tar is: " << ep << std::endl;
+	
+	}
 	else {
 	}
 
