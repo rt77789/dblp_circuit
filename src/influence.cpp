@@ -76,9 +76,10 @@ namespace circuit {
 		double ep = 0;
 		if(flag == "max") {
 			for(std::set<int>::iterator iter = src.begin(); iter != src.end(); ++iter) {
-				std::set<int> tsrc;
-				tsrc.insert(*iter);
-				calSetPoten(tsrc, s, poten);
+				//std::set<int> tsrc;
+				//tsrc.insert(*iter);
+				//calSetPoten(tsrc, s, poten);
+				calSinglePoten(*iter, s, poten);
 				double tep = 0;
 				for(std::set<int>::iterator titer = tar.begin(); titer != tar.end(); ++titer) {
 					tep += poten[*titer];	
@@ -151,6 +152,7 @@ namespace circuit {
 		}
 	}
 	void InfluenceNetwork::calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const {
+		poten.clear();
 		poten.resize(_net.size_n(), 0);
 
 		std::vector<int> apart_s;
