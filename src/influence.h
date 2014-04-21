@@ -23,6 +23,11 @@ namespace circuit {
 			void load_lamda(const char* lamfile);
 			/* Calculate potential of node apart of set s. */
 			void calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const;
+			// Calculate potential of node set (src) apart of set s. */
+			void calSetPoten(std::set<int>& src, std::set<int>& s, std::vector<double>& poten) const;
+			// Calculate potential of node set (src) to node set (tar).
+			double calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten) const;
+
 			int degree(int node);
 
 			void calExpectedPoten(std::vector<double>& ep);
@@ -38,10 +43,11 @@ namespace circuit {
 
 			/**/
 			//double calInnerInfluence(int node);
-		//	double calOuterInfluence(int node);
+			//	double calOuterInfluence(int node);
 
 			/* Calculate potentials of each node. */
-						
-		};
+
+	};
 }
 #endif
+

@@ -21,9 +21,12 @@ namespace circuit {
 	}
 
 	InfluenceNetwork::InfluenceNetwork(const char* file, const char* lamfile) {
+		//std::cout << "load file" << std::endl;
 		load(file);
+		//std::cout << "load lamda" << std::endl;
 		load_lamda(lamfile);
 	}
+
 
 	InfluenceNetwork::~InfluenceNetwork() {
 	}
@@ -37,7 +40,7 @@ namespace circuit {
 
 	void InfluenceNetwork::calPoten(std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
-		
+
 		int iterNum = 100;
 		Edge e;
 		double poten_sum = 1e300;
@@ -66,7 +69,72 @@ namespace circuit {
 		}
 		/// poten[*] is the calculated potentials.
 	}
-	
+
+	double InfluenceNetwork::calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten) const {
+		std::set<int> s;
+		calSetPoten(src, s, poten);
+
+		double ep = 0;
+		for(std::set<int>::iterator iter = tar.begin(); iter != tar.end(); ++iter) {
+			ep += poten[*iter];	
+		}
+		return ep;
+	}
+
+	void InfluenceNetwork::calSetPoten(std::set<int>& src, std::set<int>& s, std::vector<double>& poten) const {
+		poten.resize(_net.size_n(), 0);
+
+		std::vector<int> apart_s;
+		for(int i = 0; i < _net.size_n(); ++i) {
+			if(s.find(i) == s.end()) {
+				apart_s.push_back(i);
+			}
+		}
+
+		int iterNum = 100;
+		Edge e;
+		double poten_sum = 1e300;
+		double threshold = 1e-3;
+
+		for(int i = 0; i < iterNum; ++i) {
+			std::cerr << "iter num=" << i << std::endl;
+
+			for(size_t j = 0; j < apart_s.size(); ++j) {
+				int id = apart_s[j];
+
+				/// 计算id的影响力.
+				double fluence = 0;
+				for(int k = 0; k < _net.size_neighbor(id); ++k) {
+					e = _net.edge(id, k);
+					fluence += e.w2 * poten[e.v];	
+				}
+
+				//poten[id] = (1. / (1. + (1. / (_lams[id] + EPS)) )) * ((id == node ? 1 : 0) + fluence);
+				poten[id] = smooth(_lams[id] + EPS ) * ((src.find(id) != src.end() ? 1 : 0) + fluence);
+			}
+
+			double tpsum = 0;
+			for(size_t j = 0; j < _net.size_n(); ++j) {
+				tpsum += poten[j];
+			}
+			std::cerr << "tpsum: " << tpsum << " ,poten_sum: " << poten_sum << std::endl;
+			if(fabs(tpsum - poten_sum) < threshold) break;
+			poten_sum = tpsum;
+		}
+
+		double max_poten = 0;
+		for(std::set<int>::iterator iter = src.begin(); iter != src.end(); ++iter) {
+			assert(fabs(poten[*iter]) >= EPS); /// poten[node] can't be 0.
+			if(poten[*iter] > max_poten) {
+				max_poten = poten[*iter];
+			}
+		}
+
+		for(int i = 0; i < _net.size_n(); ++i) {
+			poten[i] *= 1. / max_poten;
+		}
+	}
+
 	void InfluenceNetwork::calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
 
@@ -194,7 +262,7 @@ namespace circuit {
 #endif
 			iter = queue.find(pmax);
 			if(iter != queue.end())
-			queue.erase(iter);
+				queue.erase(iter);
 		}
 	}
 
@@ -219,7 +287,7 @@ namespace circuit {
 
 		in.close();
 	}
-	
+
 	void InfluenceNetwork::calExpectedPoten(std::vector<double>& ep) {
 		std::vector<double> poten;
 		std::set<int> seeds;
@@ -245,3 +313,4 @@ namespace circuit {
 		return _lams[node];
 	}
 }
+
