@@ -12,7 +12,7 @@ typedef std::pair<double, int> Pair;
 
 int main(int argc, char** args) {
 
-	std::string options[] = {"--single-influence", 
+	std::string options[] = {"--single-influence",
 		"--all-node-influence", "--cal-linked-zones"};
 
 	if(argc < 2) {
@@ -96,7 +96,7 @@ int main(int argc, char** args) {
 		//tar.insert(118072); // Enhong Chen
 
 		circuit::InfluenceNetwork inet(args[2], args[3]);
-		double ep = inet.calSet2SetPoten(src, tar, poten);
+		double ep = inet.calSet2SetPoten(src, tar, poten, "sum");
 		std::cout << "Total Influence from src to tar is: " << ep << std::endl;
 
 	}
@@ -110,8 +110,7 @@ int main(int argc, char** args) {
 	//	std::cout << net.size_neighbor(node) << std::endl;
 	//	std::cout << net.degree(node) << std::endl;
 	//
-	//	for(int i = 0; i < 
-	//	
+	//	for(int i = 0; i <
+	//
 	return 0;
 }
-

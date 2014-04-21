@@ -34,7 +34,7 @@ namespace circuit {
 
 		for(int i = 0; i < _m; ++i) {
 			in >> _edges[i].u >> _edges[i].v >> _edges[i].w1 >> _edges[i].w2;
-			//std::cout << _edges[i].w1 << " " << _edges[i].w2 << std::endl;
+			//std::cout << i << " " << _edges[i].w1 << " " << _edges[i].w2 << std::endl;
 			//assert(_edges[i].w1 <= 1 + 1e-8 && _edges[i].w2 <= 1 + 1e-8);
 //			max_w = max_w > _edges[i].w1 ? max_w : _edges[i].w1;
 //			max_w = max_w > _edges[i].w2 ? max_w : _edges[i].w2;
