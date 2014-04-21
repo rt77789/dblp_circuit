@@ -43,10 +43,11 @@ namespace circuit {
 
 			/**/
 			//double calInnerInfluence(int node);
-		//	double calOuterInfluence(int node);
+			//	double calOuterInfluence(int node);
 
 			/* Calculate potentials of each node. */
-						
-		};
+
+	};
 }
 #endif
+

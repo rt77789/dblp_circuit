@@ -12,7 +12,7 @@ typedef std::pair<double, int> Pair;
 
 int main(int argc, char** args) {
 
-	std::string options[] = {"--single-influence", 
+	std::string options[] = {"--single-influence",
 		"--all-node-influence", "--cal-linked-zones"};
 
 	if(argc < 2) {
@@ -80,18 +80,25 @@ int main(int argc, char** args) {
 		std::vector<double> poten;
 
 		std::set<int> src, tar;
+		tar.insert(48299); //jiawei han
+		tar.insert(343718);//Peixiang Zhao	343718
+		tar.insert(53438); //Xiaolei Li	53438
+		tar.insert(53951); //Dong Xin	53951
+
+		src.insert(53436); //Hector Gonzalez	53436
 		src.insert(48299); //jiawei han
-		src.insert(522594); // yizhou sun
+		src.insert(53438); //Xiaolei Li	53438
+		//tar.insert(522594); // yizhou sun
+		//src.insert(43901); //Charu C. Aggarwal	43901
+		//src.insert(53007); //Haixun Wang	53007
 
-		tar.insert(137243); // Yi Zheng
-		tar.insert(118072); // Enhong Chen
+		//tar.insert(137243); // Yi Zheng
+		//tar.insert(118072); // Enhong Chen
 
-		std::cout << "test" << std::endl;
 		circuit::InfluenceNetwork inet(args[2], args[3]);
-		std::cout << "test" << std::endl;
 		double ep = inet.calSet2SetPoten(src, tar, poten);
 		std::cout << "Total Influence from src to tar is: " << ep << std::endl;
-	
+
 	}
 	else {
 	}
@@ -103,7 +110,7 @@ int main(int argc, char** args) {
 	//	std::cout << net.size_neighbor(node) << std::endl;
 	//	std::cout << net.degree(node) << std::endl;
 	//
-	//	for(int i = 0; i < 
-	//	
+	//	for(int i = 0; i <
+	//
 	return 0;
 }

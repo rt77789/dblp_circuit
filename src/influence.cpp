@@ -21,9 +21,9 @@ namespace circuit {
 	}
 
 	InfluenceNetwork::InfluenceNetwork(const char* file, const char* lamfile) {
-		std::cout << "load file" << std::endl;
+		//std::cout << "load file" << std::endl;
 		load(file);
-		std::cout << "load lamda" << std::endl;
+		//std::cout << "load lamda" << std::endl;
 		load_lamda(lamfile);
 	}
 
@@ -40,7 +40,7 @@ namespace circuit {
 
 	void InfluenceNetwork::calPoten(std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
-		
+
 		int iterNum = 100;
 		Edge e;
 		double poten_sum = 1e300;
@@ -134,7 +134,6 @@ namespace circuit {
 			poten[i] *= 1. / max_poten;
 		}
 	}
-	
 	void InfluenceNetwork::calSinglePoten(int node, std::set<int>& s, std::vector<double>& poten) const {
 		poten.resize(_net.size_n(), 0);
 
@@ -262,7 +261,7 @@ namespace circuit {
 #endif
 			iter = queue.find(pmax);
 			if(iter != queue.end())
-			queue.erase(iter);
+				queue.erase(iter);
 		}
 	}
 
@@ -287,7 +286,7 @@ namespace circuit {
 
 		in.close();
 	}
-	
+
 	void InfluenceNetwork::calExpectedPoten(std::vector<double>& ep) {
 		std::vector<double> poten;
 		std::set<int> seeds;
@@ -313,3 +312,4 @@ namespace circuit {
 		return _lams[node];
 	}
 }
+
