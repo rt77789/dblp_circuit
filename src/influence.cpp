@@ -25,7 +25,6 @@ namespace circuit {
 		load_lamda(lamfile);
 	}
 
-
 	InfluenceNetwork::~InfluenceNetwork() {
 	}
 
