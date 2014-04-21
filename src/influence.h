@@ -26,7 +26,7 @@ namespace circuit {
 			// Calculate potential of node set (src) apart of set s. */
 			void calSetPoten(std::set<int>& src, std::set<int>& s, std::vector<double>& poten) const;
 			// Calculate potential of node set (src) to node set (tar).
-			double calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten) const;
+			double calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten, std::string& flag) const;
 
 			int degree(int node);
 

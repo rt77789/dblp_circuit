@@ -70,13 +70,29 @@ namespace circuit {
 		/// poten[*] is the calculated potentials.
 	}
 
-	double InfluenceNetwork::calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten) const {
+	double InfluenceNetwork::calSet2SetPoten(std::set<int>& src, std::set<int>& tar, std::vector<double>& poten, std::string& flag) const {
 		std::set<int> s;
-		calSetPoten(src, s, poten);
-
+		
 		double ep = 0;
-		for(std::set<int>::iterator iter = tar.begin(); iter != tar.end(); ++iter) {
-			ep += poten[*iter];	
+		if(flag == "max") {
+			for(std::set<int>::iterator iter = src.begin(); iter != src.end(); ++iter) {
+				std::set<int> tsrc;
+				tsrc.insert(*iter);
+				calSetPoten(tsrc, s, poten);
+				double tep = 0;
+				for(std::set<int>::iterator titer = tar.begin(); titer != tar.end(); ++titer) {
+					tep += poten[*titer];	
+				}
+				if(tep > ep) {
+					ep = tep;
+				}
+			}
+		}
+		else if(flag == "sum") {
+			calSetPoten(src, s, poten);
+			for(std::set<int>::iterator iter = tar.begin(); iter != tar.end(); ++iter) {
+				ep += poten[*iter];	
+			}
 		}
 		return ep;
 	}

@@ -96,7 +96,7 @@ int main(int argc, char** args) {
 		//tar.insert(118072); // Enhong Chen
 
 		circuit::InfluenceNetwork inet(args[2], args[3]);
-		double ep = inet.calSet2SetPoten(src, tar, poten);
+		double ep = inet.calSet2SetPoten(src, tar, poten, "sum");
 		std::cout << "Total Influence from src to tar is: " << ep << std::endl;
 
 	}
