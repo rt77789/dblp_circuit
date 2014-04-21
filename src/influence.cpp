@@ -39,6 +39,7 @@ namespace circuit {
 	}
 
 	void InfluenceNetwork::calPoten(std::vector<double>& poten) const {
+		poten.clear();
 		poten.resize(_net.size_n(), 0);
 
 		int iterNum = 100;
@@ -99,6 +100,7 @@ namespace circuit {
 	}
 
 	void InfluenceNetwork::calSetPoten(std::set<int>& src, std::set<int>& s, std::vector<double>& poten) const {
+		poten.clear();
 		poten.resize(_net.size_n(), 0);
 
 		std::vector<int> apart_s;
