@@ -65,7 +65,7 @@ namespace circuit {
 		}
 		fclose(fin);
 
-		std::cout << srcs.size() << std::endl;
+		/*std::cout << srcs.size() << std::endl;
 		for(size_t i = 0; i < srcs.size(); ++i) {
 			std::cout << srcs[i];
 			for(size_t j = 0; j < tars[i].size(); ++j) {
@@ -73,6 +73,7 @@ namespace circuit {
 			}
 			std::cout << std::endl;
 		}
+		*/
 		calInfluenceSingle(srcs, sif);
 	}
 }
