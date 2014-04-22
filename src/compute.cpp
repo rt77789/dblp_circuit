@@ -54,7 +54,11 @@ namespace circuit {
 				qu.src.push_back(srcs[j]);
 				qu.tar.push_back(tars[j]);
 			}
-			qu.ofile = std::string(sif) + std::to_string(i);
+			char buffer[32] = {0};
+			assert(sprintf(buffer, "%d", i) == 1);
+
+			//qu.ofile = std::string(sif) + std::to_string(i);
+			qu.ofile = std::string(sif) + std::string(buffer);
 			iret[i] = pthread_create(&threads[i], NULL, thread_cal_influence_single, (void*)&qu);	
 			assert(iret[i] == 0);
 

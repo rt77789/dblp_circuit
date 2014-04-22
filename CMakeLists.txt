@@ -1,5 +1,6 @@
 
 set(project_name "DBLP_CIRCUIT")
+project(${project_name} C CXX)
 
 #IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 IF(${APPLE})
@@ -16,7 +17,6 @@ ENDIF(${APPLE})
 
 
 
-project(${project_name})
 
 cmake_minimum_required(VERSION 2.6)
 
@@ -30,10 +30,11 @@ message("current project source dir: ${${project_name}_BINARY_DIR}")
 MESSAGE(${CMAKE_SYSTEM_NAME})
 MESSAGE(${CMAKE_SYSTEM_PROCESSOR})
 
+FIND_PACKAGE(Threads)
 
 INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/src/)
 INCLUDE_DIRECTORIES(${${project_name}_SOURCE_DIR}/include/)
 LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib/)
 
 add_executable(main ${${project_name}_SOURCE_DIR}/main.cpp ${dir_srcs})
-
+target_link_libraries (main ${CMAKE_THREAD_LIBS_INIT})
