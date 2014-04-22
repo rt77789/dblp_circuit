@@ -12,10 +12,17 @@ while(<MAP>) {
 	my ($user, $id) = split /\t/;
 	$map{$user} = $id;
 }
+my %refs;
 while(<VA>) {
 	chomp;
-	my ($user, $num) = split /,/;
-	print "$map{$user}\n";
+	my ($cited, $citing, $num) = split /,/;
+	$refs{$map{$cited}}->{$map{$citing}}++;
+	#print "$map{$cited}\t$map{$citing}\n";
+}
+
+for my $cd (sort { $a <=> $b } keys %refs) {
+	my @citings = sort { $a <=> $b } keys %{$refs{$cd}};
+	print "$cd\t", $#citings + 1, "\t", join("\t", @citings);
 }
 close VA;
 close MAP;
