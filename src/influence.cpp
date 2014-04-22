@@ -164,10 +164,10 @@ namespace circuit {
 			}
 		}
 
-		int iterNum = 100;
+		int iterNum = 30;
 		Edge e;
 		double poten_sum = 1e300;
-		double threshold = 1e-3;
+		double threshold = 1e-2;
 
 		for(int i = 0; i < iterNum; ++i) {
 
