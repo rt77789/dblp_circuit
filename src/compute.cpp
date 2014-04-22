@@ -6,6 +6,10 @@
 #include <cmath>
 #include <fstream>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
 namespace circuit {
 
 	InfluenceNetwork __inet;
@@ -34,6 +38,34 @@ namespace circuit {
 		__inet.load(data);
 		//std::cout << "load lamda" << std::endl;
 		__inet.load_lamda(lamfile);
+	}
+
+	void run(std::vector<int>& srcs, std::vector< std::vector<int> >& tars, const char* sif) {
+		int num = 8;
+		pthread_t threads[num];
+		int iret[num];
+
+		for(int i = 0; i < num; ++i) {
+			Query qu;
+			//std::vector<int> src;
+			//std::vector< std::vector<int> > tar;
+
+			for(size_t j = i; j < srcs.size(); j+=num) {
+				qu.src.push_back(srcs[j]);
+				qu.tar.push_back(tars[j]);
+			}
+			qu.ofile = std::string(sif) + std::to_string(i);
+			iret[i] = pthread_create(&threads[i], NULL, thread_cal_influence_single, (void*)&qu);	
+			assert(iret[i] == 0);
+
+			pthread_join(threads[i], NULL);
+		}
+	}
+
+	void *thread_cal_influence_single(void*ptr) {
+		Query* ans = (Query*)ptr;
+		calInfluenceSingle(ans->src, ans->tar, ans->ofile.c_str());
+		pthread_exit(NULL);
 	}
 
 	void demo(const char* data, const char* lamfile, const char* va, const char* sif) {
@@ -65,15 +97,6 @@ namespace circuit {
 		}
 		fclose(fin);
 
-		/*std::cout << srcs.size() << std::endl;
-		for(size_t i = 0; i < srcs.size(); ++i) {
-			std::cout << srcs[i];
-			for(size_t j = 0; j < tars[i].size(); ++j) {
-				std::cout << "\t" << tars[i][j];
-			}
-			std::cout << std::endl;
-		}
-		*/
 		calInfluenceSingle(srcs, tars, sif);
 	}
 }
