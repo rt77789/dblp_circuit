@@ -74,6 +74,6 @@ namespace circuit {
 			std::cout << std::endl;
 		}
 		*/
-		calInfluenceSingle(srcs, sif);
+		calInfluenceSingle(srcs, tars, sif);
 	}
 }
