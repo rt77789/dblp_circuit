@@ -3,6 +3,7 @@
 #include <string>
 #include <graph.h>
 #include <influence.h>
+#include <compute.h>
 #include <cstdio>
 #include <algorithm>
 #include <helper.h>
@@ -99,6 +100,9 @@ int main(int argc, char** args) {
 		double ep = inet.calSet2SetPoten(src, tar, poten, "max");
 		std::cout << "Total Influence from src to tar is: " << ep << std::endl;
 
+	}
+	else if(strcmp(args[1], "--demo") == 0) {
+		circuit::demo(args[2], args[3], args[4], args[5]);
 	}
 	else {
 	}

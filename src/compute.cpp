@@ -8,6 +8,7 @@
 
 namespace circuit {
 
+	InfluenceNetwork __inet;
 	void calInfluenceSingle(std::vector<int>& src, const char* ofile) {
 		std::vector<double> poten;
 		std::set<int> seeds;
@@ -15,8 +16,8 @@ namespace circuit {
 		assert(fo != NULL);
 
 		for(size_t i = 0; i < src.size(); ++i) {
-			calSinglePoten(src[i], seeds, poten);
-			fprintf(fo, "%d", srr[i]);
+			__inet.calSinglePoten(src[i], seeds, poten);
+			fprintf(fo, "%d", src[i]);
 			for(size_t j = 0; j < poten.size(); ++j) {
 				fprintf(fo, "\t%lf", poten[j]);
 			}
@@ -35,12 +36,12 @@ namespace circuit {
 	void demo(const char* data, const char* lamfile, const char* va, const char* sif) {
 		init(data, lamfile, 1);
 
-		fin = fopen(va, "r");
+		FILE* fin = fopen(va, "r");
 		assert(fin != NULL);
 		int id = 0;
 		std::vector<int> src;
 		while(fscanf(fin, "%d", &id) == 1) {
-			src.push(id);	
+			src.push_back(id);	
 		}
 		fclose(fin);
 
