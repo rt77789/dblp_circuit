@@ -20,7 +20,10 @@ while(<VA>) {
 	#print "$map{$cited}\t$map{$citing}\n";
 }
 
-for my $cd (sort { $a <=> $b } keys %refs) {
+my @citeds = sort { $a <=> $b } keys %refs;
+print $#citeds + 1, "\n";
+
+for my $cd (@citeds) {
 	my @citings = sort { $a <=> $b } keys %{$refs{$cd}};
 	print "$cd\t", $#citings + 1, "\t", join("\t", @citings), "\n";
 }
