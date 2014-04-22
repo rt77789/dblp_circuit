@@ -22,6 +22,7 @@ namespace circuit {
 				fprintf(fo, "\t%d:%lf", tars[i][j], poten[tars[i][j]]);
 				//assert(fwrite(&poten[j],sizeof(double), 1, fo) == 1);
 			}
+			if(i == 4) break;
 		}
 		fprintf(fo, "\n");
 
@@ -72,6 +73,6 @@ namespace circuit {
 			}
 			std::cout << std::endl;
 		}
-		//calInfluenceSingle(src, sif);
+		calInfluenceSingle(srcs, sif);
 	}
 }
