@@ -55,7 +55,7 @@ namespace circuit {
 				queries[i].tar.push_back(tars[j]);
 			}
 			char buffer[32] = {0};
-			assert(sprintf(buffer, "%d", i) == 1);
+			assert(sprintf(buffer, "%d", i) > 0);
 
 			//qu.ofile = std::string(sif) + std::to_string(i);
 			queries[i].ofile = std::string(sif) + std::string(buffer);
