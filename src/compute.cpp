@@ -11,7 +11,7 @@ namespace circuit {
 	void calInfluenceSingle(std::vector<int>& src, const char* ofile) {
 		std::vector<double> poten;
 		std::set<int> seeds;
-		fo = fopen(ofile, "w"); 
+		FILE* fo = fopen(ofile, "w"); 
 		assert(fo != NULL);
 
 		for(size_t i = 0; i < src.size(); ++i) {
