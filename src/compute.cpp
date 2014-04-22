@@ -23,7 +23,7 @@ namespace circuit {
 				//assert(fwrite(&poten[j],sizeof(double), 1, fo) == 1);
 			}
 			fprintf(fo, "\n");
-			if(i == 4) break;
+			if(i == 19) break;
 		}
 
 		fclose(fo);
