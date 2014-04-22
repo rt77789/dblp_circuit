@@ -41,33 +41,37 @@ namespace circuit {
 	}
 
 	void run(std::vector<int>& srcs, std::vector< std::vector<int> >& tars, const char* sif) {
-		int num = 8;
-		pthread_t threads[num];
+		int num = 18;
+		std::vector<pthread_t> threads(num);
+		std::vector<Query> queries(num);
 		int iret[num];
 
 		for(int i = 0; i < num; ++i) {
-			Query qu;
 			//std::vector<int> src;
 			//std::vector< std::vector<int> > tar;
 
 			for(size_t j = i; j < srcs.size(); j+=num) {
-				qu.src.push_back(srcs[j]);
-				qu.tar.push_back(tars[j]);
+				queries[i].src.push_back(srcs[j]);
+				queries[i].tar.push_back(tars[j]);
 			}
 			char buffer[32] = {0};
 			assert(sprintf(buffer, "%d", i) == 1);
 
 			//qu.ofile = std::string(sif) + std::to_string(i);
-			qu.ofile = std::string(sif) + std::string(buffer);
-			iret[i] = pthread_create(&threads[i], NULL, thread_cal_influence_single, (void*)&qu);	
-			assert(iret[i] == 0);
+			queries[i].ofile = std::string(sif) + std::string(buffer);
+			std::cout << "thread " << queries[i].ofile << std::endl;
 
+			iret[i] = pthread_create(threads.data() + i, NULL, thread_cal_influence_single, queries.data() + i);	
+			assert(iret[i] == 0);
+		}
+		for(int i = 0; i < num; ++i) {
 			pthread_join(threads[i], NULL);
 		}
 	}
 
 	void *thread_cal_influence_single(void*ptr) {
 		Query* ans = (Query*)ptr;
+		std::cout << "in thread_cal_influence_single: thread " << ans->ofile << std::endl;
 		calInfluenceSingle(ans->src, ans->tar, ans->ofile.c_str());
 		pthread_exit(NULL);
 	}
@@ -101,6 +105,7 @@ namespace circuit {
 		}
 		fclose(fin);
 
-		calInfluenceSingle(srcs, tars, sif);
+		//calInfluenceSingle(srcs, tars, sif);
+		run(srcs, tars, sif);
 	}
 }
