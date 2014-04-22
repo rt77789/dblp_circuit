@@ -22,7 +22,7 @@ while(<VA>) {
 
 for my $cd (sort { $a <=> $b } keys %refs) {
 	my @citings = sort { $a <=> $b } keys %{$refs{$cd}};
-	print "$cd\t", $#citings + 1, "\t", join("\t", @citings);
+	print "$cd\t", $#citings + 1, "\t", join("\t", @citings), "\n";
 }
 close VA;
 close MAP;

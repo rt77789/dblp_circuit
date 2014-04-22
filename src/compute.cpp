@@ -17,11 +17,13 @@ namespace circuit {
 
 		for(size_t i = 0; i < src.size(); ++i) {
 			__inet.calSinglePoten(src[i], seeds, poten);
-			fprintf(fo, "%d", src[i]);
+			//fprintf(fo, "%d", src[i]);
 			for(size_t j = 0; j < poten.size(); ++j) {
-				fprintf(fo, "\t%lf", poten[j]);
+				//fprintf(fo, "\t%lf", poten[j]);
+				assert(fwrite(&poten[j],sizeof(double), 1, fo) == 1);
 			}
-			fprintf(fo, "\n");
+			//fprintf(fo, "\n");
+			break;
 		}
 		fclose(fo);
 	}
