@@ -34,7 +34,7 @@ namespace circuit {
 				//assert(fwrite(&poten[j],sizeof(double), 1, fo) == 1);
 			}
 			fprintf(fo, "\n");
-			//if(i == 19) break;
+			//if(i == 199) break;
 		}
 
 		fclose(fo);
@@ -104,7 +104,7 @@ namespace circuit {
 	}
 
 	void run(std::vector<int>& srcs, std::vector< std::vector<int> >& tars, const char* sif) {
-		int num = 1;
+		int num = 20;
 		std::vector<pthread_t> threads(num);
 		std::vector<Query> queries(num);
 		int iret[num];
