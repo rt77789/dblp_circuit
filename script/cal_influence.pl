@@ -10,8 +10,9 @@ for my $f (`ls $dir/*.si`) {
 	while(<IN>) {
 		my ($u, @tk) = split /\s+/;
 		for my $p (@tk) {
-			my ($v, $tsi) = split /:/;
+			my ($v, $tsi) = split /:/, $p;
 			$si{$u}->{$v} = $tsi;
+			print "($u,$v,$tsi)\n";
 		}
 	}
 	close IN;
